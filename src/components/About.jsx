@@ -108,12 +108,12 @@ const About = () => {
                 <span className="h-3 w-3 rounded-full bg-danger/90" />
                 <span className="h-3 w-3 rounded-full bg-amber-400/90" />
                 <span className="h-3 w-3 rounded-full bg-emerald-400/90" />
-                <span className="ml-2 text-[10px] font-mono text-white/40">{about.sqlTitle || 'whoami.sql'}</span>
+                <span data-edit-id="about.sqlTitle" data-edit-name="About · SQL Title" data-edit-kind="text" data-edit-path="about.sqlTitle" className="ml-2 text-[10px] font-mono text-white/40">{about.sqlTitle || 'whoami.sql'}</span>
               </div>
-              <pre className="font-mono text-[12.5px] leading-relaxed text-white/90 whitespace-pre-wrap">
+              <pre data-edit-id="about.sqlQuery" data-edit-name="About · SQL Query" data-edit-kind="text" data-edit-path="about.sqlQuery" className="font-mono text-[12.5px] leading-relaxed text-white/90 whitespace-pre-wrap">
 {about.sqlQuery || "SELECT role, focus\nFROM   nandhini_c\nWHERE  curiosity = TRUE;"}
               </pre>
-              <div className="mt-4 border-t border-white/10 pt-3 font-mono text-[12px] text-white/50">
+              <div data-edit-id="about.sqlOutput" data-edit-name="About · SQL Output" data-edit-kind="text" data-edit-path="about.sqlOutput" className="mt-4 border-t border-white/10 pt-3 font-mono text-[12px] text-white/50">
                 <span className="text-accent">→</span> {about.sqlOutput ? about.sqlOutput.split('\n')[0] : `${about.profileCaption} · turns`}
                 {about.sqlOutput && about.sqlOutput.split('\n').slice(1).map((line, idx) => (
                   <React.Fragment key={idx}>
@@ -131,9 +131,9 @@ const About = () => {
               className="lg:col-span-2 rounded-3xl border border-line bg-bg p-6"
             >
               <span className="text-xs font-mono text-accent uppercase tracking-wider">Education</span>
-              <p className="mt-2 text-ink font-semibold leading-snug">{about.education?.school}</p>
-              <p className="mt-1 text-sm text-ink-soft">{about.education?.degree}</p>
-              <p className="mt-3 text-xs font-mono text-ink-soft/70">{about.education?.years}</p>
+              <p data-edit-id="about.education.school" data-edit-name="Education · School" data-edit-kind="text" data-edit-path="about.education.school" className="mt-2 text-ink font-semibold leading-snug">{about.education?.school}</p>
+              <p data-edit-id="about.education.degree" data-edit-name="Education · Degree" data-edit-kind="text" data-edit-path="about.education.degree" className="mt-1 text-sm text-ink-soft">{about.education?.degree}</p>
+              <p data-edit-id="about.education.years" data-edit-name="Education · Years" data-edit-kind="text" data-edit-path="about.education.years" className="mt-3 text-xs font-mono text-ink-soft/70">{about.education?.years}</p>
             </motion.div>
           )}
 
@@ -145,10 +145,10 @@ const About = () => {
             >
               <span className="text-xs font-mono text-accent uppercase tracking-wider">Goals</span>
               <p className="mt-2 text-ink font-medium leading-snug">
-                <span className="text-accent">Now →</span> {about.goals?.now}
+                <span className="text-accent">Now →</span> <span data-edit-id="about.goals.now" data-edit-name="Goals · Current" data-edit-kind="text" data-edit-path="about.goals.now">{about.goals?.now}</span>
               </p>
               <p className="mt-3 text-ink font-medium leading-snug">
-                <span className="text-accent">Next →</span> {about.goals?.next}
+                <span className="text-accent">Next →</span> <span data-edit-id="about.goals.next" data-edit-name="Goals · Future" data-edit-kind="text" data-edit-path="about.goals.next">{about.goals?.next}</span>
               </p>
             </motion.div>
           )}
@@ -164,8 +164,8 @@ const About = () => {
                 viewport={{ once: true }} transition={{ duration: 0.6, ease, delay: i * 0.08 }}
                 className="bg-surface p-6 sm:p-8"
               >
-                <div className="font-display font-extrabold text-3xl sm:text-4xl text-ink tabular-nums">{s.value}</div>
-                <div className="mt-1 text-sm text-ink-soft">{s.label}</div>
+                <div data-edit-id={`about.stats.${i}.value`} data-edit-name={`Highlight ${i+1} · Value`} data-edit-kind="text" data-edit-path={`about.stats.${i}.value`} className="font-display font-extrabold text-3xl sm:text-4xl text-ink tabular-nums">{s.value}</div>
+                <div data-edit-id={`about.stats.${i}.label`} data-edit-name={`Highlight ${i+1} · Label`} data-edit-kind="text" data-edit-path={`about.stats.${i}.label`} className="mt-1 text-sm text-ink-soft">{s.label}</div>
               </motion.div>
             ))}
           </div>
