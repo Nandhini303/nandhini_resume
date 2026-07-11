@@ -37,6 +37,8 @@ export default function Experiences() {
   useEffect(() => {
     fetchExperiences();
 
+    if (!supabase) return;
+
     const channel = supabase
       .channel('experiences-realtime')
       .on(

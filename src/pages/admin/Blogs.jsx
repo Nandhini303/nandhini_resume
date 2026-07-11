@@ -42,6 +42,8 @@ export default function Blogs() {
   useEffect(() => {
     fetchBlogs();
 
+    if (!supabase) return;
+
     const channel = supabase
       .channel('blogs-realtime')
       .on(

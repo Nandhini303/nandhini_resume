@@ -228,6 +228,11 @@ export default function AboutSettings() {
     return !(form.watch('hiddenFields') || []).includes(fieldName);
   };
 
+  const eyeProps = (key) => ({
+    visible: isVisible(key),
+    onToggle: () => toggleVisibility(key),
+  });
+
   return (
     <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="max-w-4xl space-y-8 pb-32">
       <div>

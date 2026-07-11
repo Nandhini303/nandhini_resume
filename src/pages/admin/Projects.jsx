@@ -43,6 +43,8 @@ export default function Projects() {
   useEffect(() => {
     fetchProjects();
 
+    if (!supabase) return;
+
     const channel = supabase
       .channel('projects-realtime')
       .on(
