@@ -53,7 +53,7 @@ app.post('/api/contact', async (req, res) => {
 
 // Root Route
 app.get('/', (req, res) => {
-  res.send('Arun Pandian Portfolio API running...');
+  res.send('Nandhini C Portfolio API running...');
 });
 
 const PORT = process.env.PORT || 5000;

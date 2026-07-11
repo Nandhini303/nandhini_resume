@@ -15,7 +15,7 @@ export default function Welcome({ onDone }) {
   const welcome = settings.welcome || {};
 
   // Retrieve single quote (with fallback)
-  const quote = welcome.quote || (welcome.quotes && welcome.quotes[0]) || 'I turn messy data into clear decisions.';
+  const quote = welcome.quote || (welcome.quotes && welcome.quotes[0]) || 'Turning ideas into working software.';
 
   const reduced =
     typeof window !== 'undefined' &&
@@ -102,7 +102,7 @@ export default function Welcome({ onDone }) {
         onClick={finish}
         className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 text-white overflow-hidden px-6 cursor-pointer pointer-events-auto"
       >
-        <div className="absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_45%,rgba(37,99,235,0.2),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_45%,rgba(79,70,229,0.2),transparent_70%)]" />
 
         {/* Skip */}
         <button
@@ -118,7 +118,7 @@ export default function Welcome({ onDone }) {
             <div className="flex flex-col items-center justify-center gap-4 mb-8">
               <Logo size={42} className="opacity-90 animate-pulse" />
               <span className="text-[11px] font-mono tracking-[0.35em] uppercase text-white/40">
-                {welcome.name || 'Arun Pandian · Data Analyst'}
+                {welcome.name || 'Nandhini C · IT Student'}
               </span>
             </div>
 
@@ -141,12 +141,12 @@ export default function Welcome({ onDone }) {
             <div className="flex justify-center mb-6">
               <Logo size={56} className="opacity-95" />
             </div>
-            <p className="text-xs font-mono tracking-[0.35em] uppercase text-blue-400 mb-3">Welcome</p>
+            <p className="text-xs font-mono tracking-[0.35em] uppercase text-indigo-400 mb-3">Welcome</p>
             <h2 className="font-display font-extrabold text-3xl sm:text-5xl tracking-tight leading-tight text-white">
-              {welcome.inviteTitle || 'Pleasure to have you here.'}
+              {welcome.inviteTitle || 'Welcome to my space.'}
             </h2>
             <p className="mt-4 text-slate-400 text-lg sm:text-xl">
-              {welcome.inviteSubtitle || "Let's turn data into decisions — and connect."}
+              {welcome.inviteSubtitle || "Let's explore software development and connect."}
             </p>
           </motion.div>
         ) : null}

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { LogIn, Loader2, ArrowLeft, ShieldCheck, Sparkles } from 'lucide-react';
 import { supabase } from '../../lib/supabaseClient';
 import Logo from '../../components/Logo';
-import arunProfile from '../../assets/arun-profile.jpg';
+import nandhiniProfile from '../../assets/nandhini-profile.png';
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -47,8 +47,8 @@ export default function Login() {
           initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease }}
           className="relative flex items-center gap-3"
         >
-          <Logo size={34} title="Arun Pandian logo" />
-          <span className="font-display font-bold tracking-tight text-lg">Arun Pandian</span>
+          <Logo size={34} title="Nandhini C logo" />
+          <span className="font-display font-bold tracking-tight text-lg">Nandhini C</span>
         </motion.div>
 
         {/* Center: avatar + welcome */}
@@ -60,11 +60,11 @@ export default function Login() {
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-              className="absolute -inset-[5px] rounded-full bg-[conic-gradient(from_0deg,#2563EB,#6366F1,#a5b4fc,#2563EB)]"
+              className="absolute -inset-[5px] rounded-full bg-[conic-gradient(from_0deg,#4F46E5,#818CF8,#c7d2fe,#4F46E5)]"
             />
             <img
-              src={arunProfile}
-              alt="Arun Pandian"
+              src={nandhiniProfile}
+              alt="Nandhini C"
               className="relative h-24 w-24 rounded-full object-cover border-[3px] border-ink"
               style={{ objectPosition: '50% 22%' }}
             />
@@ -73,7 +73,7 @@ export default function Login() {
 
           <h1 className="mt-8 font-display font-extrabold text-4xl xl:text-5xl tracking-tight leading-[1.05]">
             Welcome back,<br />
-            <span className="text-accent italic font-medium">Arun.</span>
+            <span className="text-accent italic font-medium">Nandhini.</span>
           </h1>
           <p className="mt-4 text-white/60 text-lg leading-relaxed">
             Your portfolio, your data. Sign in to edit every element of the site — changes go live in realtime.
@@ -94,7 +94,7 @@ export default function Login() {
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.4 }}
           className="relative text-xs font-mono tracking-[0.25em] uppercase text-white/30"
         >
-          Data · into · decisions
+          Turning · ideas · into · software
         </motion.p>
       </div>
 
@@ -117,15 +117,15 @@ export default function Login() {
           {/* Mobile-only avatar header (brand panel is hidden below lg) */}
           <div className="lg:hidden flex flex-col items-center mb-8">
             <div className="relative">
-              <div className="absolute -inset-[4px] rounded-full bg-[conic-gradient(from_0deg,#2563EB,#6366F1,#a5b4fc,#2563EB)]" />
+              <div className="absolute -inset-[4px] rounded-full bg-[conic-gradient(from_0deg,#4F46E5,#818CF8,#c7d2fe,#4F46E5)]" />
               <img
-                src={arunProfile}
-                alt="Arun Pandian"
+                src={nandhiniProfile}
+                alt="Nandhini C"
                 className="relative h-20 w-20 rounded-full object-cover border-[3px] border-bg"
                 style={{ objectPosition: '50% 22%' }}
               />
             </div>
-            <p className="mt-3 font-display font-bold text-ink">Arun Pandian</p>
+            <p className="mt-3 font-display font-bold text-ink">Nandhini C</p>
           </div>
 
           <h2 className="font-display font-extrabold text-3xl text-ink tracking-tight">Sign in</h2>

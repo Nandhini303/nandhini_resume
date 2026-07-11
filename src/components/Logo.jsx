@@ -13,7 +13,7 @@ export default function Logo({ size = 30, className = '', title }) {
       data-edit-kind="image"
       data-edit-path="branding.logoUrl"
       src={dynamicLogo || logoImg}
-      alt={title || "Arun Pandian Logo"}
+      alt={title || "Nandhini C Logo"}
       style={{ width: size, height: size }}
       className={`object-contain rounded-md ${!dynamicLogo ? 'invert brightness-125 contrast-125' : ''} ${className}`}
     />

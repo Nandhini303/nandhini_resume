@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Mail, ArrowUpRight, ArrowDownRight, ArrowRight, Compass, ShieldAlert, Sparkles } from 'lucide-react';
 import MagneticButton from './MagneticButton';
 import Parallax from './Parallax';
-import arunProfile from '../assets/arun-profile.jpg';
+import nandhiniProfile from '../assets/nandhini-profile.png';
 import { useContent } from '../context/ContentProvider';
 import { WordRotator } from '../theme/Modifiers';
 
@@ -79,8 +79,8 @@ const Hero = () => {
           <div className="relative mt-10 w-44 h-44 rounded-full border-4 border-[#2C0E1E] shadow-[6px_6px_0px_#2C0E1E] overflow-hidden bg-white">
             <img
               data-edit-id="hero.profileImage" data-edit-name="Hero · Profile image" data-edit-kind="image" data-edit-path="hero.profileImage"
-              src={hero.profileImage || arunProfile}
-              alt={hero.name || 'Arun Pandian'}
+              src={hero.profileImage || nandhiniProfile}
+              alt={hero.name || 'Nandhini C'}
               className="w-full h-full object-cover"
             />
           </div>
@@ -206,8 +206,8 @@ const Hero = () => {
             <div className="relative w-72 h-96 rounded-2xl overflow-hidden border border-black/10 shadow-2xl">
               <img
                 data-edit-id="hero.profileImage" data-edit-name="Hero · Profile image" data-edit-kind="image" data-edit-path="hero.profileImage"
-                src={hero.profileImage || arunProfile}
-                alt={hero.name || 'Arun Pandian'}
+                src={hero.profileImage || nandhiniProfile}
+                alt={hero.name || 'Nandhini C'}
                 className="w-full h-full object-cover filter saturate-125"
               />
             </div>
@@ -467,16 +467,16 @@ const Hero = () => {
                     <div className="absolute -inset-[3px] rounded-full" style={{ background: 'conic-gradient(from 0deg, var(--color-primary), #6366F1, #a5b4fc, var(--color-primary))' }} />
                     <img
                       data-edit-id="hero.profileImage" data-edit-name="Hero · Profile image" data-edit-kind="image" data-edit-path="hero.profileImage"
-                      src={hero.profileImage || arunProfile}
-                      alt={hero.name || 'Arun Pandian'}
+                      src={hero.profileImage || nandhiniProfile}
+                      alt={hero.name || 'Nandhini C'}
                       className="relative h-14 w-14 rounded-full object-cover border-2 border-surface"
                       style={{ objectPosition: '50% 22%' }}
                     />
                     <span className="absolute -bottom-0.5 -right-0.5 h-4 w-4 rounded-full bg-emerald-500 border-2 border-surface" />
                   </div>
                   <div className="leading-tight">
-                    {isVisible('name') && <p data-edit-id="hero.profileName" data-edit-name="Hero · Profile name" data-edit-kind="text" data-edit-path="hero.name" className="font-display font-bold text-ink text-sm">{hero.name || 'Arun Pandian'}</p>}
-                    {isVisible('role') && <p data-edit-id="hero.profileRole" data-edit-name="Hero · Profile role" data-edit-kind="text" data-edit-path="hero.role" className="text-[11px] text-ink-soft font-mono">{hero.role || 'Data Analyst'}</p>}
+                    {isVisible('name') && <p data-edit-id="hero.profileName" data-edit-name="Hero · Profile name" data-edit-kind="text" data-edit-path="hero.name" className="font-display font-bold text-ink text-sm">{hero.name || 'Nandhini C'}</p>}
+                    {isVisible('role') && <p data-edit-id="hero.profileRole" data-edit-name="Hero · Profile role" data-edit-kind="text" data-edit-path="hero.role" className="text-[11px] text-ink-soft font-mono">{hero.role || 'IT Student'}</p>}
                   </div>
                 </div>
               )}

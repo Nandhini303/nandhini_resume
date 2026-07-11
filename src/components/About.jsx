@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import arunProfile from '../assets/arun-profile.jpg';
+import nandhiniProfile from '../assets/nandhini-profile.png';
 import SliceReveal from './SliceReveal';
 import { useContent } from '../context/ContentProvider';
 
@@ -44,8 +44,8 @@ const About = () => {
               >
                 <img
                   data-edit-id="about.profileImage" data-edit-name="About · Profile image" data-edit-kind="image" data-edit-path="about.profileImage"
-                  src={about.profileImage || arunProfile}
-                  alt={about.profileCaption || 'Arun Pandian'}
+                  src={about.profileImage || nandhiniProfile}
+                  alt={about.profileCaption || 'Nandhini C'}
                   className="h-full w-full min-h-[260px] object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
                 />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent p-5 pt-14">
@@ -111,12 +111,12 @@ const About = () => {
             </div>
             <pre className="font-mono text-[12.5px] leading-relaxed text-white/90 whitespace-pre-wrap">
 <span className="text-indigo-300">SELECT</span> role, focus{'\n'}
-<span className="text-indigo-300">FROM</span>   arun_pandian{'\n'}
+<span className="text-indigo-300">FROM</span>   nandhini_c{'\n'}
 <span className="text-indigo-300">WHERE</span>  curiosity = <span className="text-emerald-300">TRUE</span>;
             </pre>
             <div className="mt-4 border-t border-white/10 pt-3 font-mono text-[12px] text-white/50">
               <span className="text-accent">→</span> {about.profileCaption} · turns
-              <br />&nbsp;&nbsp;messy data into decisions
+              <br />&nbsp;&nbsp;ideas into software
             </div>
           </motion.div>
 

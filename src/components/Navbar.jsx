@@ -8,7 +8,7 @@ import { LetterRoll } from '../theme/Modifiers';
 const Navbar = () => {
   const { settings } = useContent();
   const navbar = settings.navbar || {};
-  const brandName = settings.hero?.name || 'Arun Pandian';
+  const brandName = settings.hero?.name || 'Nandhini C';
   const animationStyle = settings.theme?.layout?.animationStyle || 'default';
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);

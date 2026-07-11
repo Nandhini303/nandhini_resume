@@ -67,7 +67,7 @@ export default function SeoSettings() {
         <div className="space-y-6">
           <TextField 
             label="Meta Title" 
-            placeholder="Arun Pandian - Data Analyst"
+            placeholder="Nandhini C - Portfolio"
             {...form.register('metaTitle')} 
             error={form.formState.errors.metaTitle?.message} 
           />
@@ -80,7 +80,7 @@ export default function SeoSettings() {
           />
           <TextField 
             label="Keywords (Comma separated)" 
-            placeholder="Data Analyst, SQL, Python, Portfolio"
+            placeholder="IT Student, Python, Full-Stack, Portfolio"
             {...form.register('keywords')} 
             error={form.formState.errors.keywords?.message} 
           />
@@ -99,7 +99,7 @@ export default function SeoSettings() {
           </div>
           <TextField 
             label="Twitter Handle" 
-            placeholder="@arunpandian"
+            placeholder="@nandhinic"
             {...form.register('twitterHandle')} 
             error={form.formState.errors.twitterHandle?.message} 
           />

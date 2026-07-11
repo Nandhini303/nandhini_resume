@@ -185,12 +185,12 @@ function AdminShell() {
       >
         <div className="flex h-16 items-center justify-between px-6 border-b border-slate-800 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center font-bold">
-              AP
+            <div className="h-8 w-8 rounded bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center font-bold">
+              NC
             </div>
             <div>
               <div className="font-bold text-sm tracking-wide">ADMIN PANEL</div>
-              <div className="text-[10px] text-slate-400">Arun Pandian</div>
+              <div className="text-[10px] text-slate-400">Nandhini C</div>
             </div>
           </div>
           <button onClick={closeSidebar} className="lg:hidden text-slate-400 hover:text-white">
@@ -231,8 +231,8 @@ function AdminShell() {
 
         <div className="p-4 border-t border-slate-800 shrink-0 space-y-4">
           <div className="flex items-center gap-3 px-2 mb-4">
-            <div className="h-8 w-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-blue-400">
-              {userEmail ? userEmail.charAt(0).toUpperCase() : 'A'}
+            <div className="h-8 w-8 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-indigo-400">
+              {userEmail ? userEmail.charAt(0).toUpperCase() : 'N'}
             </div>
             <div className="overflow-hidden">
               <div className="text-xs text-slate-400 truncate">{userEmail}</div>

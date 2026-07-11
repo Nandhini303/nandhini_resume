@@ -183,25 +183,25 @@ export default function Settings() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <TextField
               label="Branding Name"
-              placeholder="e.g. Arun Pandian · Data Analyst"
+              placeholder="e.g. Nandhini C · IT Student"
               {...form.register('welcome.name')}
               error={form.formState.errors.welcome?.name?.message}
             />
             <TextField
               label="Welcome Screen Quote"
-              placeholder="e.g. I turn messy data into clear decisions."
+              placeholder="e.g. Turning ideas into working software."
               {...form.register('welcome.quote')}
               error={form.formState.errors.welcome?.quote?.message}
             />
             <TextField
               label="Invitation Title"
-              placeholder="e.g. Pleasure to have you here."
+              placeholder="e.g. Welcome to my space."
               {...form.register('welcome.inviteTitle')}
               error={form.formState.errors.welcome?.inviteTitle?.message}
             />
             <TextField
               label="Invitation Subtitle"
-              placeholder="e.g. Let's turn data into decisions — and connect."
+              placeholder="e.g. Let's explore software development and connect."
               {...form.register('welcome.inviteSubtitle')}
               error={form.formState.errors.welcome?.inviteSubtitle?.message}
             />
@@ -221,8 +221,8 @@ export default function Settings() {
           <div className="space-y-4">
             <h3 className="font-semibold text-sm text-slate-700">Projects section</h3>
             <TextField label="Eyebrow label" placeholder="04 — Selected Work" {...form.register('sections.projects.label')} error={form.formState.errors.sections?.projects?.label?.message} />
-            <TextField label="Title" placeholder="Recruiter-ready case studies" {...form.register('sections.projects.title')} error={form.formState.errors.sections?.projects?.title?.message} />
-            <TextField label="Subtitle" placeholder="Quality over quantity…" {...form.register('sections.projects.subtitle')} error={form.formState.errors.sections?.projects?.subtitle?.message} />
+            <TextField label="Title" placeholder="Publications & Projects" {...form.register('sections.projects.title')} error={form.formState.errors.sections?.projects?.title?.message} />
+            <TextField label="Subtitle" placeholder="Showcasing research papers and development bootcamps." {...form.register('sections.projects.subtitle')} error={form.formState.errors.sections?.projects?.subtitle?.message} />
           </div>
           <div className="space-y-4">
             <h3 className="font-semibold text-sm text-slate-700">Blog section</h3>
@@ -234,8 +234,8 @@ export default function Settings() {
 
       <SectionCard title="Footer">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <TextField label="Display Name" placeholder="Arun Pandian" {...form.register('footer.name')} error={form.formState.errors.footer?.name?.message} />
-          <TextField label="Tagline" placeholder="Data Analyst — SQL · Python · Power BI…" {...form.register('footer.tagline')} error={form.formState.errors.footer?.tagline?.message} />
+          <TextField label="Display Name" placeholder="Nandhini C" {...form.register('footer.name')} error={form.formState.errors.footer?.name?.message} />
+          <TextField label="Tagline" placeholder="IT Student — Python · Full-Stack Development · AI Foundations…" {...form.register('footer.tagline')} error={form.formState.errors.footer?.tagline?.message} />
           <TextField label="Copyright Text" placeholder="Built with React · Supabase." {...form.register('footer.copyright')} error={form.formState.errors.footer?.copyright?.message} />
           <TextField label="Design Year" placeholder="2026" {...form.register('footer.designYear')} error={form.formState.errors.footer?.designYear?.message} />
         </div>
