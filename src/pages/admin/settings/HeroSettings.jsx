@@ -27,32 +27,78 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 
 const heroSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  role: z.string().min(1, 'Role is required'),
-  badge: z.string().min(1, 'Badge is required'),
-  headlineAccent: z.string().min(1, 'Accent is required'),
-  subtitle: z.string().min(1, 'Subtitle is required'),
+  name: z.string().optional(),
+  role: z.string().optional(),
+  badge: z.string().optional(),
+  headlineAccent: z.string().optional(),
+  subtitle: z.string().optional(),
   profileImage: z.string().optional(),
   primaryCta: z.object({
-    label: z.string().min(1, 'Label is required'),
-    href: z.string().min(1, 'Link is required'),
-  }),
+    label: z.string().optional(),
+    href: z.string().optional(),
+  }).optional(),
   secondaryCta: z.object({
-    label: z.string().min(1, 'Label is required'),
-    href: z.string().min(1, 'Link is required'),
-  }),
-  videoSrc: z.string().min(1, 'Video source is required'),
-  videoCaption: z.string().min(1, 'Caption is required'),
-  videoSubCaption: z.string().min(1, 'Sub-caption is required'),
+    label: z.string().optional(),
+    href: z.string().optional(),
+  }).optional(),
+  videoSrc: z.string().optional(),
+  videoCaption: z.string().optional(),
+  videoSubCaption: z.string().optional(),
   story: z.array(z.object({
-    k: z.string().min(1, 'Letter is required'),
-    label: z.string().min(1, 'Label is required')
-  })),
+    k: z.string().optional(),
+    label: z.string().optional()
+  })).default([]),
   credentials: z.array(z.object({
-    value: z.string().min(1, 'Value is required'),
-    label: z.string().min(1, 'Label is required')
-  })),
+    value: z.string().optional(),
+    label: z.string().optional()
+  })).default([]),
   hiddenFields: z.array(z.string()).default([]),
+}).superRefine((data, ctx) => {
+  const isVisible = (field) => !data.hiddenFields.includes(field);
+
+  if (isVisible('name') && (!data.name || data.name.trim() === '')) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['name'], message: 'Name is required' });
+  }
+  if (isVisible('role') && (!data.role || data.role.trim() === '')) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['role'], message: 'Role is required' });
+  }
+  if (isVisible('badge') && (!data.badge || data.badge.trim() === '')) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['badge'], message: 'Badge is required' });
+  }
+  if (isVisible('headlineAccent') && (!data.headlineAccent || data.headlineAccent.trim() === '')) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['headlineAccent'], message: 'Accent is required' });
+  }
+  if (isVisible('subtitle') && (!data.subtitle || data.subtitle.trim() === '')) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['subtitle'], message: 'Subtitle is required' });
+  }
+  if (isVisible('profileImage') && (!data.profileImage || data.profileImage.trim() === '')) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['profileImage'], message: 'Profile image is required' });
+  }
+  if (isVisible('primaryCta')) {
+    if (!data.primaryCta?.label || data.primaryCta.label.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['primaryCta', 'label'], message: 'Label is required' });
+    }
+    if (!data.primaryCta?.href || data.primaryCta.href.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['primaryCta', 'href'], message: 'Link is required' });
+    }
+  }
+  if (isVisible('secondaryCta')) {
+    if (!data.secondaryCta?.label || data.secondaryCta.label.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['secondaryCta', 'label'], message: 'Label is required' });
+    }
+    if (!data.secondaryCta?.href || data.secondaryCta.href.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['secondaryCta', 'href'], message: 'Link is required' });
+    }
+  }
+  if (isVisible('videoSrc') && (!data.videoSrc || data.videoSrc.trim() === '')) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['videoSrc'], message: 'Video source is required' });
+  }
+  if (isVisible('videoCaption') && (!data.videoCaption || data.videoCaption.trim() === '')) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['videoCaption'], message: 'Caption is required' });
+  }
+  if (isVisible('videoSubCaption') && (!data.videoSubCaption || data.videoSubCaption.trim() === '')) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['videoSubCaption'], message: 'Sub-caption is required' });
+  }
 });
 
 function SortableItem(props) {
@@ -183,9 +229,13 @@ export default function HeroSettings() {
 
       <SectionCard title="General Information" description="Use the eye on each field to show or hide that element on the live site.">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="md:col-span-2 flex items-center justify-between border-b border-slate-100 pb-2">
+            <span className="text-sm font-semibold text-slate-700">Hero Profile Image</span>
+            <EyeToggle visible={isVisible('profileImage')} onToggle={() => toggleVisibility('profileImage')} label="profile image" />
+          </div>
           <div className="md:col-span-2">
             <ImageUpload
-              label="Hero Profile Image"
+              label=""
               folder="hero"
               url={form.watch('profileImage')}
               onUpload={(url) => form.setValue('profileImage', url, { shouldDirty: true })}
@@ -222,9 +272,13 @@ export default function HeroSettings() {
 
       <SectionCard title="Hero Media (Video)">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="md:col-span-2 space-y-2.5">
+          <div className="md:col-span-2 flex items-center justify-between border-b border-slate-100 pb-2">
+            <span className="text-sm font-semibold text-slate-700">Hero Video or Image</span>
+            <EyeToggle visible={isVisible('videoSrc')} onToggle={() => toggleVisibility('videoSrc')} label="hero video" />
+          </div>
+          <div className="md:col-span-2">
             <ImageUpload
-              label="Hero Video or Image"
+              label=""
               folder="hero"
               accept="image/*,video/*"
               url={form.watch('videoSrc')}

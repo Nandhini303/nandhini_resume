@@ -76,14 +76,16 @@ const Hero = () => {
           )}
 
           {/* Visual Profile Avatar Bubble */}
-          <div className="relative mt-10 w-44 h-44 rounded-full border-4 border-[#2C0E1E] shadow-[6px_6px_0px_#2C0E1E] overflow-hidden bg-white">
-            <img
-              data-edit-id="hero.profileImage" data-edit-name="Hero · Profile image" data-edit-kind="image" data-edit-path="hero.profileImage"
-              src={hero.profileImage || nandhiniProfile}
-              alt={hero.name || 'Nandhini C'}
-              className="w-full h-full object-cover"
-            />
-          </div>
+          {isVisible('profileImage') && (
+            <div className="relative mt-10 w-44 h-44 rounded-full border-4 border-[#2C0E1E] shadow-[6px_6px_0px_#2C0E1E] overflow-hidden bg-white">
+              <img
+                data-edit-id="hero.profileImage" data-edit-name="Hero · Profile image" data-edit-kind="image" data-edit-path="hero.profileImage"
+                src={hero.profileImage || nandhiniProfile}
+                alt={hero.name || 'Nandhini C'}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
 
           {/* Button Stepper CTAs */}
           <div className="mt-8 flex flex-wrap justify-center gap-4">
@@ -202,16 +204,18 @@ const Hero = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="relative w-72 h-96 rounded-2xl overflow-hidden border border-black/10 shadow-2xl">
-              <img
-                data-edit-id="hero.profileImage" data-edit-name="Hero · Profile image" data-edit-kind="image" data-edit-path="hero.profileImage"
-                src={hero.profileImage || nandhiniProfile}
-                alt={hero.name || 'Nandhini C'}
-                className="w-full h-full object-cover filter saturate-125"
-              />
+          {isVisible('profileImage') && (
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="relative w-72 h-96 rounded-2xl overflow-hidden border border-black/10 shadow-2xl">
+                <img
+                  data-edit-id="hero.profileImage" data-edit-name="Hero · Profile image" data-edit-kind="image" data-edit-path="hero.profileImage"
+                  src={hero.profileImage || nandhiniProfile}
+                  alt={hero.name || 'Nandhini C'}
+                  className="w-full h-full object-cover filter saturate-125"
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
     );
@@ -222,13 +226,15 @@ const Hero = () => {
     return (
       <section id="hero" data-edit-id="hero.section" data-edit-name="Hero" data-edit-kind="section" className="relative min-h-screen flex flex-col justify-center items-center bg-[#0B0B0B] text-[#E8E4DC] px-5 py-24 text-center">
         {/* Fullscreen muted video background layer */}
-        <div className="absolute inset-0 pointer-events-none opacity-20 -z-10">
-          <video
-            src={hero.videoSrc || '/hero-animation.mp4'}
-            autoPlay muted loop playsInline
-            className="w-full h-full object-cover"
-          />
-        </div>
+        {isVisible('videoSrc') && (
+          <div className="absolute inset-0 pointer-events-none opacity-20 -z-10">
+            <video
+              src={hero.videoSrc || '/hero-animation.mp4'}
+              autoPlay muted loop playsInline
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
 
         <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
           {isVisible('badge') && (
@@ -311,20 +317,22 @@ const Hero = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-5 flex justify-center relative">
-            {/* GPS meta display box */}
-            <div className="absolute top-4 right-4 z-20 font-mono text-[9px] text-[#F3D016] bg-black/60 px-2 py-1 rounded border border-[#F3D016]/20">
-              COORD: 54.3439°N 7.6321°W
+          {isVisible('videoSrc') && (
+            <div className="lg:col-span-5 flex justify-center relative">
+              {/* GPS meta display box */}
+              <div className="absolute top-4 right-4 z-20 font-mono text-[9px] text-[#F3D016] bg-black/60 px-2 py-1 rounded border border-[#F3D016]/20">
+                COORD: 54.3439°N 7.6321°W
+              </div>
+              
+              <div className="w-full max-w-sm aspect-square bg-[#111111] border-2 border-[#F3D016] p-2 relative">
+                <video
+                  src={hero.videoSrc || '/hero-animation.mp4'}
+                  autoPlay muted loop playsInline
+                  className="w-full h-full object-cover filter grayscale contrast-125"
+                />
+              </div>
             </div>
-            
-            <div className="w-full max-w-sm aspect-square bg-[#111111] border-2 border-[#F3D016] p-2 relative">
-              <video
-                src={hero.videoSrc || '/hero-animation.mp4'}
-                autoPlay muted loop playsInline
-                className="w-full h-full object-cover filter grayscale contrast-125"
-              />
-            </div>
-          </div>
+          )}
         </div>
       </section>
     );
@@ -442,47 +450,52 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        <Parallax speed={60} className="lg:col-span-5">
-          <motion.div initial={{ opacity: 0, scale: 0.94, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 1, ease, delay: 0.25 }}>
-            <motion.div animate={{ y: [0, -12, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }} className="relative mx-auto max-w-md">
-              <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-accent/25 via-indigo-300/20 to-transparent blur-3xl" />
-              <div className="relative rounded-[1.75rem] border border-line bg-surface p-2 shadow-[0_40px_90px_-30px_rgba(9,9,11,0.4)]">
-                <video
-                  data-edit-id="hero.videoSrc" data-edit-name="Hero · Video" data-edit-kind="image" data-edit-path="hero.videoSrc"
-                  className="w-full rounded-[1.35rem] aspect-square object-cover bg-ink"
-                  src={hero.videoSrc || '/hero-animation.mp4'}
-                  autoPlay muted loop playsInline preload="auto"
-                />
-                {(isVisible('videoCaption') || isVisible('videoSubCaption')) && (
-                  <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between rounded-xl bg-surface/85 backdrop-blur px-4 py-2.5 border border-line">
-                    {isVisible('videoCaption') && <span data-edit-id="hero.videoCaption" data-edit-name="Hero · Video caption" data-edit-kind="text" data-edit-path="hero.videoCaption" className="font-display font-semibold text-ink text-sm">{hero.videoCaption || 'Data · in motion'}</span>}
-                    {isVisible('videoSubCaption') && <span data-edit-id="hero.videoSubCaption" data-edit-name="Hero · Video subcaption" data-edit-kind="text" data-edit-path="hero.videoSubCaption" className="text-xs text-ink-soft font-mono">{hero.videoSubCaption || 'SQL · Python · BI'}</span>}
+        {(isVisible('videoSrc') || isVisible('profileImage')) && (
+          <Parallax speed={60} className="lg:col-span-5">
+            <motion.div initial={{ opacity: 0, scale: 0.94, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 1, ease, delay: 0.25 }}>
+              <motion.div animate={{ y: [0, -12, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }} className="relative mx-auto max-w-md">
+                <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-accent/25 via-indigo-300/20 to-transparent blur-3xl" />
+                
+                {isVisible('videoSrc') && (
+                  <div className="relative rounded-[1.75rem] border border-line bg-surface p-2 shadow-[0_40px_90px_-30px_rgba(9,9,11,0.4)]">
+                    <video
+                      data-edit-id="hero.videoSrc" data-edit-name="Hero · Video" data-edit-kind="image" data-edit-path="hero.videoSrc"
+                      className="w-full rounded-[1.35rem] aspect-square object-cover bg-ink"
+                      src={hero.videoSrc || '/hero-animation.mp4'}
+                      autoPlay muted loop playsInline preload="auto"
+                    />
+                    {(isVisible('videoCaption') || isVisible('videoSubCaption')) && (
+                      <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between rounded-xl bg-surface/85 backdrop-blur px-4 py-2.5 border border-line">
+                        {isVisible('videoCaption') && <span data-edit-id="hero.videoCaption" data-edit-name="Hero · Video caption" data-edit-kind="text" data-edit-path="hero.videoCaption" className="font-display font-semibold text-ink text-sm">{hero.videoCaption || 'Data · in motion'}</span>}
+                        {isVisible('videoSubCaption') && <span data-edit-id="hero.videoSubCaption" data-edit-name="Hero · Video subcaption" data-edit-kind="text" data-edit-path="hero.videoSubCaption" className="text-xs text-ink-soft font-mono">{hero.videoSubCaption || 'SQL · Python · BI'}</span>}
+                      </div>
+                    )}
                   </div>
                 )}
-              </div>
-              
-              {(isVisible('name') || isVisible('role')) && (
-                <div className="absolute -top-5 -left-5 sm:-left-8 flex items-center gap-3 rounded-2xl bg-surface/90 backdrop-blur border border-line shadow-[0_20px_45px_-20px_rgba(9,9,11,0.5)] pl-2 pr-4 py-2">
-                  <div className="relative shrink-0">
-                    <div className="absolute -inset-[3px] rounded-full" style={{ background: 'conic-gradient(from 0deg, var(--color-primary), #6366F1, #a5b4fc, var(--color-primary))' }} />
-                    <img
-                      data-edit-id="hero.profileImage" data-edit-name="Hero · Profile image" data-edit-kind="image" data-edit-path="hero.profileImage"
-                      src={hero.profileImage || nandhiniProfile}
-                      alt={hero.name || 'Nandhini C'}
-                      className="relative h-14 w-14 rounded-full object-cover border-2 border-surface"
-                      style={{ objectPosition: '50% 22%' }}
-                    />
-                    <span className="absolute -bottom-0.5 -right-0.5 h-4 w-4 rounded-full bg-emerald-500 border-2 border-surface" />
+                
+                {isVisible('profileImage') && (isVisible('name') || isVisible('role')) && (
+                  <div className="absolute -top-5 -left-5 sm:-left-8 flex items-center gap-3 rounded-2xl bg-surface/90 backdrop-blur border border-line shadow-[0_20px_45px_-20px_rgba(9,9,11,0.5)] pl-2 pr-4 py-2">
+                    <div className="relative shrink-0">
+                      <div className="absolute -inset-[3px] rounded-full" style={{ background: 'conic-gradient(from 0deg, var(--color-primary), #6366F1, #a5b4fc, var(--color-primary))' }} />
+                      <img
+                        data-edit-id="hero.profileImage" data-edit-name="Hero · Profile image" data-edit-kind="image" data-edit-path="hero.profileImage"
+                        src={hero.profileImage || nandhiniProfile}
+                        alt={hero.name || 'Nandhini C'}
+                        className="relative h-14 w-14 rounded-full object-cover border-2 border-surface"
+                        style={{ objectPosition: '50% 22%' }}
+                      />
+                      <span className="absolute -bottom-0.5 -right-0.5 h-4 w-4 rounded-full bg-emerald-500 border-2 border-surface" />
+                    </div>
+                    <div className="leading-tight">
+                      {isVisible('name') && <p data-edit-id="hero.profileName" data-edit-name="Hero · Profile name" data-edit-kind="text" data-edit-path="hero.name" className="font-display font-bold text-ink text-sm">{hero.name || 'Nandhini C'}</p>}
+                      {isVisible('role') && <p data-edit-id="hero.profileRole" data-edit-name="Hero · Profile role" data-edit-kind="text" data-edit-path="hero.role" className="text-[11px] text-ink-soft font-mono">{hero.role || 'IT Student'}</p>}
+                    </div>
                   </div>
-                  <div className="leading-tight">
-                    {isVisible('name') && <p data-edit-id="hero.profileName" data-edit-name="Hero · Profile name" data-edit-kind="text" data-edit-path="hero.name" className="font-display font-bold text-ink text-sm">{hero.name || 'Nandhini C'}</p>}
-                    {isVisible('role') && <p data-edit-id="hero.profileRole" data-edit-name="Hero · Profile role" data-edit-kind="text" data-edit-path="hero.role" className="text-[11px] text-ink-soft font-mono">{hero.role || 'IT Student'}</p>}
-                  </div>
-                </div>
-              )}
+                )}
+              </motion.div>
             </motion.div>
-          </motion.div>
-        </Parallax>
+          </Parallax>
+        )}
       </div>
 
       <motion.div

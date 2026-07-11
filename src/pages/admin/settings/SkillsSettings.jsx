@@ -26,15 +26,42 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 
 const skillsSchema = z.object({
-  sectionLabel: z.string().min(1, 'Label is required'),
-  sectionTitle: z.string().min(1, 'Title is required'),
+  sectionLabel: z.string().optional(),
+  sectionTitle: z.string().optional(),
   categories: z.array(z.object({
-    title: z.string().min(1, 'Category title is required'),
-    icon: z.string().min(1, 'Icon name is required'),
-    items: z.string().min(1, 'At least one skill is required') // We'll edit items as a comma-separated string for simplicity
+    title: z.string().optional(),
+    icon: z.string().optional(),
+    items: z.string().optional()
   })),
-  ticker: z.string().min(1, 'Ticker items are required'),
+  ticker: z.string().optional(),
   hiddenFields: z.array(z.string()).default([]),
+}).superRefine((data, ctx) => {
+  const isVisible = (field) => !data.hiddenFields.includes(field);
+
+  if (isVisible('sectionHeaders')) {
+    if (!data.sectionLabel || data.sectionLabel.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['sectionLabel'], message: 'Label is required' });
+    }
+    if (!data.sectionTitle || data.sectionTitle.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['sectionTitle'], message: 'Title is required' });
+    }
+  }
+  if (isVisible('categories')) {
+    data.categories.forEach((cat, idx) => {
+      if (!cat.title || cat.title.trim() === '') {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['categories', idx, 'title'], message: 'Category title is required' });
+      }
+      if (!cat.icon || cat.icon.trim() === '') {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['categories', idx, 'icon'], message: 'Icon name is required' });
+      }
+      if (!cat.items || cat.items.trim() === '') {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['categories', idx, 'items'], message: 'At least one skill is required' });
+      }
+    });
+  }
+  if (isVisible('ticker') && (!data.ticker || data.ticker.trim() === '')) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['ticker'], message: 'Ticker items are required' });
+  }
 });
 
 function SortableItem(props) {

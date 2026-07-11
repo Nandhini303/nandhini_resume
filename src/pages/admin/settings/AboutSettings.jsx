@@ -27,27 +27,71 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 
 const aboutSchema = z.object({
-  sectionLabel: z.string().min(1, 'Label is required'),
-  sectionTitle: z.string().min(1, 'Title is required'),
-  narrative: z.string().min(1, 'Narrative is required'),
-  narrativeExtra: z.string().min(1, 'Extra narrative is required'),
-  profileCaption: z.string().min(1, 'Profile caption is required'),
-  profileSubCaption: z.string().min(1, 'Profile sub-caption is required'),
+  sectionLabel: z.string().optional(),
+  sectionTitle: z.string().optional(),
+  narrative: z.string().optional(),
+  narrativeExtra: z.string().optional(),
+  profileCaption: z.string().optional(),
+  profileSubCaption: z.string().optional(),
   profileImage: z.string().optional(),
   education: z.object({
-    school: z.string().min(1, 'School is required'),
-    degree: z.string().min(1, 'Degree is required'),
-    years: z.string().min(1, 'Years is required'),
-  }),
+    school: z.string().optional(),
+    degree: z.string().optional(),
+    years: z.string().optional(),
+  }).optional(),
   goals: z.object({
-    now: z.string().min(1, 'Goal is required'),
-    next: z.string().min(1, 'Future goal is required'),
-  }),
+    now: z.string().optional(),
+    next: z.string().optional(),
+  }).optional(),
   stats: z.array(z.object({
-    value: z.string().min(1, 'Value is required'),
-    label: z.string().min(1, 'Label is required')
-  })),
+    value: z.string().optional(),
+    label: z.string().optional()
+  })).default([]),
   hiddenFields: z.array(z.string()).default([]),
+}).superRefine((data, ctx) => {
+  const isVisible = (field) => !data.hiddenFields.includes(field);
+
+  if (isVisible('sectionHeaders')) {
+    if (!data.sectionLabel || data.sectionLabel.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['sectionLabel'], message: 'Label is required' });
+    }
+    if (!data.sectionTitle || data.sectionTitle.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['sectionTitle'], message: 'Title is required' });
+    }
+  }
+  if (isVisible('narrative')) {
+    if (!data.narrative || data.narrative.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['narrative'], message: 'Narrative is required' });
+    }
+    if (!data.narrativeExtra || data.narrativeExtra.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['narrativeExtra'], message: 'Extra narrative is required' });
+    }
+    if (!data.profileCaption || data.profileCaption.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['profileCaption'], message: 'Profile caption is required' });
+    }
+    if (!data.profileSubCaption || data.profileSubCaption.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['profileSubCaption'], message: 'Profile sub-caption is required' });
+    }
+  }
+  if (isVisible('education')) {
+    if (!data.education?.school || data.education.school.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['education', 'school'], message: 'School is required' });
+    }
+    if (!data.education?.degree || data.education.degree.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['education', 'degree'], message: 'Degree is required' });
+    }
+    if (!data.education?.years || data.education.years.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['education', 'years'], message: 'Years is required' });
+    }
+  }
+  if (isVisible('goals')) {
+    if (!data.goals?.now || data.goals.now.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['goals', 'now'], message: 'Goal is required' });
+    }
+    if (!data.goals?.next || data.goals.next.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['goals', 'next'], message: 'Future goal is required' });
+    }
+  }
 });
 
 function SortableItem(props) {

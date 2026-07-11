@@ -10,12 +10,37 @@ import { useSiteSettings } from '../../../components/admin/hooks/useSiteSettings
 import { usePreviewSync } from '../../../components/admin/preview/usePreviewSync';
 
 const contactSchema = z.object({
-  sectionLabel: z.string().min(1, 'Label is required'),
-  sectionTitle: z.string().min(1, 'Title is required'),
-  subtitle: z.string().min(1, 'Subtitle is required'),
-  email: z.string().email('Invalid email address'),
-  location: z.string().min(1, 'Location is required'),
+  sectionLabel: z.string().optional(),
+  sectionTitle: z.string().optional(),
+  subtitle: z.string().optional(),
+  email: z.string().optional(),
+  location: z.string().optional(),
+  phone: z.string().optional(),
   hiddenFields: z.array(z.string()).default([]),
+}).superRefine((data, ctx) => {
+  const isVisible = (field) => !data.hiddenFields.includes(field);
+
+  if (isVisible('sectionHeaders')) {
+    if (!data.sectionLabel || data.sectionLabel.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['sectionLabel'], message: 'Label is required' });
+    }
+    if (!data.sectionTitle || data.sectionTitle.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['sectionTitle'], message: 'Title is required' });
+    }
+  }
+  if (isVisible('subtitle') && (!data.subtitle || data.subtitle.trim() === '')) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['subtitle'], message: 'Subtitle is required' });
+  }
+  if (isVisible('email')) {
+    if (!data.email || data.email.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['email'], message: 'Email is required' });
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['email'], message: 'Invalid email address' });
+    }
+  }
+  if (isVisible('location') && (!data.location || data.location.trim() === '')) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['location'], message: 'Location is required' });
+  }
 });
 
 export default function ContactSettings() {
