@@ -51,6 +51,7 @@ const aboutSchema = z.object({
     label: z.string().optional()
   })).default([]),
   hiddenFields: z.array(z.string()).default([]),
+  stack: z.array(z.string()).optional(),
 }).superRefine((data, ctx) => {
   const isVisible = (field) => !data.hiddenFields.includes(field);
 

@@ -35,6 +35,7 @@ const skillsSchema = z.object({
   })),
   ticker: z.string().optional(),
   hiddenFields: z.array(z.string()).default([]),
+  certifications: z.array(z.string()).optional(),
 }).superRefine((data, ctx) => {
   const isVisible = (field) => !data.hiddenFields.includes(field);
 

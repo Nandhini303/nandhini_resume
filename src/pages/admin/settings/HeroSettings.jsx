@@ -53,6 +53,13 @@ const heroSchema = z.object({
     label: z.string().optional()
   })).default([]),
   hiddenFields: z.array(z.string()).default([]),
+  headline: z.array(z.string()).optional(),
+  ticker: z.array(z.string()).optional(),
+  socials: z.object({
+    github: z.string().optional(),
+    linkedin: z.string().optional(),
+    email: z.string().optional(),
+  }).optional(),
 }).superRefine((data, ctx) => {
   const isVisible = (field) => !data.hiddenFields.includes(field);
 
