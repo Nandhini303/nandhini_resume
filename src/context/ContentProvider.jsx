@@ -92,7 +92,7 @@ const fallbackSettings = {
         issueDate: "December 2025",
         credentialId: "694a3080e83f3f31dcdb6f126b",
         credentialUrl: "https://theforage.com",
-        image: ""
+        image: "/certifications/deloitte_data_analytics.jpeg"
       },
       {
         name: "Python Development Intern Certificate",
@@ -100,7 +100,7 @@ const fallbackSettings = {
         issueDate: "January 2026",
         credentialId: "CTI/A1/C277974",
         credentialUrl: "https://www.cognifyz.com",
-        image: ""
+        image: "/certifications/cognifyz_python_intern.jpeg"
       },
       {
         name: "2 Hour BootCamp in Full Stack Development",
@@ -108,7 +108,7 @@ const fallbackSettings = {
         issueDate: "February 2025",
         credentialId: "NT_FSDB327",
         credentialUrl: "",
-        image: ""
+        image: "/certifications/novitech_fullstack.jpeg"
       }
     ],
     hiddenFields: []
