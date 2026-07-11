@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Loader2, Plus, GripVertical, Trash2 } from 'lucide-react';
@@ -170,6 +171,21 @@ export default function AboutSettings() {
     });
   }, []);
 
+  const onInvalid = (errors) => {
+    console.error("Form validation errors:", errors);
+    const getFirstError = (obj) => {
+      if (!obj) return null;
+      if (obj.message) return obj.message;
+      for (const val of Object.values(obj)) {
+        const msg = getFirstError(val);
+        if (msg) return msg;
+      }
+      return null;
+    };
+    const msg = getFirstError(errors);
+    toast.error(msg || "Please check the highlighted fields.");
+  };
+
   const onSubmit = async (values) => {
     setIsSaving(true);
     // Merge back arrays like 'stack' that we aren't editing yet
@@ -225,8 +241,9 @@ export default function AboutSettings() {
           <TextField label="Section Title" {...form.register('sectionTitle')} error={form.formState.errors.sectionTitle?.message} />
         </div>
       </SectionCard>
-
-      <SectionCard title="The Narrative" action={<EyeToggle visible={isVisible('narrative')} onToggle={() => toggleVisibility('narrative')} label="narrative card" />}>
+      
+      {/* Narrative Section */}
+      <SectionCard title="Personal Narrative" action={<EyeToggle {...eyeProps('narrative')} label="narrative section" />}>
         <div className="space-y-6">
           <ImageUpload
             label="Profile Image"
@@ -234,8 +251,18 @@ export default function AboutSettings() {
             url={form.watch('profileImage')}
             onUpload={(url) => form.setValue('profileImage', url, { shouldDirty: true })}
           />
-          <TextArea label="Primary Narrative" rows={4} {...form.register('narrative')} error={form.formState.errors.narrative?.message} />
-          <TextArea label="Secondary Narrative (Extra)" rows={3} {...form.register('narrativeExtra')} error={form.formState.errors.narrativeExtra?.message} />
+          <TextArea 
+            label="Brief Intro Narrative (HTML allowed)" 
+            rows={4} 
+            {...form.register('narrative')} 
+            error={form.formState.errors.narrative?.message} 
+          />
+          <TextArea 
+            label="Extended Narrative" 
+            rows={4} 
+            {...form.register('narrativeExtra')} 
+            error={form.formState.errors.narrativeExtra?.message} 
+          />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
             <TextField label="Profile Caption (Name)" {...form.register('profileCaption')} error={form.formState.errors.profileCaption?.message} />
@@ -243,35 +270,39 @@ export default function AboutSettings() {
           </div>
         </div>
       </SectionCard>
-      <SectionCard title="SQL Terminal Card" action={<EyeToggle visible={isVisible('sqlCard')} onToggle={() => toggleVisibility('sqlCard')} label="SQL Terminal Card" />}>
+
+      {/* SQL Terminal Card */}
+      <SectionCard title="SQL Terminal Card" action={<EyeToggle {...eyeProps('sqlCard')} label="SQL card" />}>
         <div className="space-y-6">
-          <TextField label="Card Tab Title (e.g. whoami.sql)" {...form.register('sqlTitle')} error={form.formState.errors.sqlTitle?.message} />
-          <TextArea label="SQL Query / Code" rows={3} {...form.register('sqlQuery')} error={form.formState.errors.sqlQuery?.message} />
-          <TextArea label="Terminal Output (New lines separated)" rows={3} {...form.register('sqlOutput')} error={form.formState.errors.sqlOutput?.message} />
+          <TextField label="Query Title" {...form.register('sqlTitle')} error={form.formState.errors.sqlTitle?.message} />
+          <TextArea label="SQL Query" rows={3} {...form.register('sqlQuery')} error={form.formState.errors.sqlQuery?.message} />
+          <TextArea label="SQL Output (line by line)" rows={3} {...form.register('sqlOutput')} error={form.formState.errors.sqlOutput?.message} />
         </div>
       </SectionCard>
 
-      <SectionCard title="Goals" action={<EyeToggle visible={isVisible('goals')} onToggle={() => toggleVisibility('goals')} label="goals card" />}>
+      {/* Education */}
+      <SectionCard title="Education Details" action={<EyeToggle {...eyeProps('education')} label="education section" />}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <TextField label="School / University" {...form.register('education.school')} error={form.formState.errors.education?.school?.message} />
+          <TextField label="Degree / Course" {...form.register('education.degree')} error={form.formState.errors.education?.degree?.message} />
+          <TextField label="Years (e.g. 2023 — 2026)" {...form.register('education.years')} error={form.formState.errors.education?.years?.message} />
+        </div>
+      </SectionCard>
+
+      {/* Goals */}
+      <SectionCard title="Goals & Objectives" action={<EyeToggle {...eyeProps('goals')} label="goals section" />}>
         <div className="space-y-6">
-          <TextArea label="Current Goal (Now)" rows={2} {...form.register('goals.now')} error={form.formState.errors.goals?.now?.message} />
-          <TextArea label="Future Goal (Next)" rows={2} {...form.register('goals.next')} error={form.formState.errors.goals?.next?.message} />
+          <TextField label="Current Focus (Now)" {...form.register('goals.now')} error={form.formState.errors.goals?.now?.message} />
+          <TextField label="Future Goal (Next)" {...form.register('goals.next')} error={form.formState.errors.goals?.next?.message} />
         </div>
       </SectionCard>
 
-      <SectionCard title="Education" action={<EyeToggle visible={isVisible('education')} onToggle={() => toggleVisibility('education')} label="education card" />}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <TextField label="School / University" className="md:col-span-2" {...form.register('education.school')} error={form.formState.errors.education?.school?.message} />
-          <TextField label="Degree" {...form.register('education.degree')} error={form.formState.errors.education?.degree?.message} />
-          <TextField label="Years (e.g. 2022 - 2026)" {...form.register('education.years')} error={form.formState.errors.education?.years?.message} />
-        </div>
-      </SectionCard>
-
-      <SectionCard title="Highlights / Stats" action={<div className="flex items-center gap-2">
-            <EyeToggle visible={isVisible('stats')} onToggle={() => toggleVisibility('stats')} label="stats card" />
-            <button type="button" onClick={() => appendStat({ value: '', label: '' })} className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-              <Plus size={16} /> Add Highlight
-            </button>
-          </div>}>
+      {/* Highlights / Stats */}
+      <SectionCard title="Key Highlights" action={<div className="flex items-center gap-2">
+            <EyeToggle {...eyeProps('stats')} label="highlights section" />
+            <button type="button" onClick={() => appendStat({ value: '', label: '' })} className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
+              <Plus size={14} /> Add Highlight
+            </button></div>}>
         
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={statsFields.map(f => f.id)} strategy={verticalListSortingStrategy}>
@@ -280,13 +311,13 @@ export default function AboutSettings() {
                 <SortableItem key={field.id} id={field.id}>
                   <div className="flex gap-4 items-start">
                     <TextField 
-                      placeholder="Value (e.g. 3)" 
+                      placeholder="Value (e.g. 9.5)" 
                       className="w-32" 
                       {...form.register(`stats.${index}.value`)} 
                       error={form.formState.errors.stats?.[index]?.value?.message} 
                     />
                     <TextField 
-                      placeholder="Label (e.g. Data projects shipped)" 
+                      placeholder="Label" 
                       className="flex-1" 
                       {...form.register(`stats.${index}.label`)} 
                       error={form.formState.errors.stats?.[index]?.label?.message} 
@@ -307,7 +338,7 @@ export default function AboutSettings() {
         isDirty={form.formState.isDirty} 
         isSaving={isSaving} 
         onDiscard={() => form.reset()} 
-        onSave={form.handleSubmit(onSubmit)} 
+        onSave={form.handleSubmit(onSubmit, onInvalid)} 
       />
     </form>
   );

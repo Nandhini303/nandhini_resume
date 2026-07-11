@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Loader2, Plus, GripVertical, Trash2 } from 'lucide-react';
@@ -154,6 +155,21 @@ export default function SkillsSettings() {
     });
   }, []);
 
+  const onInvalid = (errors) => {
+    console.error("Form validation errors:", errors);
+    const getFirstError = (obj) => {
+      if (!obj) return null;
+      if (obj.message) return obj.message;
+      for (const val of Object.values(obj)) {
+        const msg = getFirstError(val);
+        if (msg) return msg;
+      }
+      return null;
+    };
+    const msg = getFirstError(errors);
+    toast.error(msg || "Please check the highlighted fields.");
+  };
+
   const onSubmit = async (values) => {
     setIsSaving(true);
     // Parse comma separated strings back to arrays
@@ -193,13 +209,13 @@ export default function SkillsSettings() {
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-4xl space-y-8 pb-32">
+    <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="max-w-4xl space-y-8 pb-32">
       <div>
         <h1 className="font-bold text-2xl text-slate-800">Skills Settings</h1>
-        <p className="text-slate-500 mt-1 text-sm">Configure your toolkit and infinite marquee ticker.</p>
+        <p className="text-slate-500 mt-1 text-sm">Manage your technical toolkit and skill categories.</p>
       </div>
 
-      <SectionCard title="Section Headers" action={<EyeToggle visible={isVisible('sectionHeaders')} onToggle={() => toggleVisibility('sectionHeaders')} label="section headers" />}>
+      <SectionCard title="Section Headers" action={<EyeToggle visible={isVisible('sectionHeaders')} onToggle={() => toggleVisibility('sectionHeaders')} label="skills headers" />}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <TextField label="Section Label" {...form.register('sectionLabel')} error={form.formState.errors.sectionLabel?.message} />
           <TextField label="Section Title" {...form.register('sectionTitle')} error={form.formState.errors.sectionTitle?.message} />
@@ -207,7 +223,7 @@ export default function SkillsSettings() {
       </SectionCard>
 
       <SectionCard title="Skill Categories" action={<div className="flex items-center gap-2">
-            <EyeToggle visible={isVisible('categories')} onToggle={() => toggleVisibility('categories')} label="skill categories" />
+            <EyeToggle visible={isVisible('categories')} onToggle={() => toggleVisibility('categories')} label="skills categories" />
             <button type="button" onClick={() => appendCat({ title: '', icon: '', items: '' })} className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-semibold text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
               <Plus size={16} /> Add Category
             </button>
@@ -215,14 +231,14 @@ export default function SkillsSettings() {
         
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={catFields.map(f => f.id)} strategy={verticalListSortingStrategy}>
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid grid-cols-1 gap-3">
               {catFields.map((field, index) => (
                 <SortableItem key={field.id} id={field.id}>
                   <div className="flex gap-4 items-start">
-                    <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
                       <TextField 
                         label="Category Title"
-                        placeholder="e.g. Languages & Querying" 
+                        placeholder="e.g. Languages" 
                         {...form.register(`categories.${index}.title`)} 
                         error={form.formState.errors.categories?.[index]?.title?.message} 
                       />
@@ -265,7 +281,7 @@ export default function SkillsSettings() {
         isDirty={form.formState.isDirty} 
         isSaving={isSaving} 
         onDiscard={() => form.reset()} 
-        onSave={form.handleSubmit(onSubmit)} 
+        onSave={form.handleSubmit(onSubmit, onInvalid)} 
       />
     </form>
   );

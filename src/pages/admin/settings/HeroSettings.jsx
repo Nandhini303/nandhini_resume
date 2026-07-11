@@ -197,6 +197,22 @@ export default function HeroSettings() {
     });
   }, []);
 
+  const onInvalid = (errors) => {
+    console.error("Form validation errors:", errors);
+    // Find the first error message and toast it
+    const getFirstError = (obj) => {
+      if (!obj) return null;
+      if (obj.message) return obj.message;
+      for (const val of Object.values(obj)) {
+        const msg = getFirstError(val);
+        if (msg) return msg;
+      }
+      return null;
+    };
+    const msg = getFirstError(errors);
+    toast.error(msg || "Please check the highlighted fields.");
+  };
+
   const onSubmit = async (values) => {
     setIsSaving(true);
     const finalData = { ...initialData, ...values };
@@ -373,7 +389,7 @@ export default function HeroSettings() {
         isDirty={form.formState.isDirty} 
         isSaving={isSaving} 
         onDiscard={() => form.reset()} 
-        onSave={form.handleSubmit(onSubmit)} 
+        onSave={form.handleSubmit(onSubmit, onInvalid)} 
       />
     </form>
   );
