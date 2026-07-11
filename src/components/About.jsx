@@ -35,7 +35,7 @@ const About = () => {
 
         {/* Bento grid */}
         <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 sm:gap-5">
-          {/* Profile portrait — shows Arun clearly, unveiled in slices */}
+          {/* Profile portrait — shows Nandhini clearly, unveiled in slices */}
           {isVisible('narrative') && (
             <SliceReveal className="lg:col-span-2 h-full">
               <motion.div
@@ -99,26 +99,30 @@ const About = () => {
           )}
 
           {/* SQL terminal card */}
-          <motion.div
-            custom={2} variants={rise} initial="hidden" whileInView="show" viewport={{ once: true }}
-            className="lg:col-span-2 rounded-3xl border border-ink/80 bg-ink p-5 shadow-[0_30px_60px_-30px_rgba(9,9,11,0.6)]"
-          >
-            <div className="flex items-center gap-1.5 mb-4">
-              <span className="h-3 w-3 rounded-full bg-danger/90" />
-              <span className="h-3 w-3 rounded-full bg-amber-400/90" />
-              <span className="h-3 w-3 rounded-full bg-emerald-400/90" />
-              <span className="ml-2 text-[10px] font-mono text-white/40">whoami.sql</span>
-            </div>
-            <pre className="font-mono text-[12.5px] leading-relaxed text-white/90 whitespace-pre-wrap">
-<span className="text-indigo-300">SELECT</span> role, focus{'\n'}
-<span className="text-indigo-300">FROM</span>   nandhini_c{'\n'}
-<span className="text-indigo-300">WHERE</span>  curiosity = <span className="text-emerald-300">TRUE</span>;
-            </pre>
-            <div className="mt-4 border-t border-white/10 pt-3 font-mono text-[12px] text-white/50">
-              <span className="text-accent">→</span> {about.profileCaption} · turns
-              <br />&nbsp;&nbsp;ideas into software
-            </div>
-          </motion.div>
+          {isVisible('sqlCard') && (
+            <motion.div
+              custom={2} variants={rise} initial="hidden" whileInView="show" viewport={{ once: true }}
+              className="lg:col-span-2 rounded-3xl border border-ink/80 bg-ink p-5 shadow-[0_30px_60px_-30px_rgba(9,9,11,0.6)]"
+            >
+              <div className="flex items-center gap-1.5 mb-4">
+                <span className="h-3 w-3 rounded-full bg-danger/90" />
+                <span className="h-3 w-3 rounded-full bg-amber-400/90" />
+                <span className="h-3 w-3 rounded-full bg-emerald-400/90" />
+                <span className="ml-2 text-[10px] font-mono text-white/40">{about.sqlTitle || 'whoami.sql'}</span>
+              </div>
+              <pre className="font-mono text-[12.5px] leading-relaxed text-white/90 whitespace-pre-wrap">
+{about.sqlQuery || "SELECT role, focus\nFROM   nandhini_c\nWHERE  curiosity = TRUE;"}
+              </pre>
+              <div className="mt-4 border-t border-white/10 pt-3 font-mono text-[12px] text-white/50">
+                <span className="text-accent">→</span> {about.sqlOutput ? about.sqlOutput.split('\n')[0] : `${about.profileCaption} · turns`}
+                {about.sqlOutput && about.sqlOutput.split('\n').slice(1).map((line, idx) => (
+                  <React.Fragment key={idx}>
+                    <br />&nbsp;&nbsp;{line}
+                  </React.Fragment>
+                ))}
+              </div>
+            </motion.div>
+          )}
 
           {/* Education */}
           {isVisible('education') && (

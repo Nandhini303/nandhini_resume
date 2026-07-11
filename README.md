@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=06B6D4&height=200&section=header&text=Arun%20Pandian&fontSize=60&fontAlignY=35&desc=Professional%20Portfolio&descAlignY=55&descSize=20&fontColor=ffffff" width="100%" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=4F46E5&height=200&section=header&text=Nandhini%20C&fontSize=60&fontAlignY=35&desc=Professional%20Portfolio&descAlignY=55&descSize=20&fontColor=ffffff" width="100%" />
 
   **A highly interactive, 3D web experience built for the modern web.**
   <br />
@@ -117,5 +117,5 @@ This project is configured out-of-the-box for **Vercel** with the `vercel` CLI t
 
 <div align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=06B6D4&height=100&section=footer" width="100%"/>
-  <p>Built with ❤️ by <b>Arun Pandian</b></p>
+  <p>Built with ❤️ by <b>Nandhini C</b></p>
 </div>

@@ -42,6 +42,9 @@ const fallbackSettings = {
     sectionTitle: 'Bridging code and data',
     narrative:
       "I'm an Information Technology student and B.Tech candidate who enjoys building functional software across Python scripting, responsive frontend interfaces, and full-stack environments.",
+    sqlTitle: 'whoami.sql',
+    sqlQuery: 'SELECT role, focus\nFROM   nandhini_c\nWHERE  curiosity = TRUE;',
+    sqlOutput: 'Nandhini C · turns\nideas into software',
     narrativeExtra:
       "I co-authored two research papers exploring supply chain resilience and big data intrusion detection. I also completed structured technical bootcamps in full-stack development and data science, refining my collaborative development skills.",
     stack: ['Python', 'HTML', 'CSS', 'Full-Stack Development', 'Data Science', 'AI Foundations', 'Excel'],

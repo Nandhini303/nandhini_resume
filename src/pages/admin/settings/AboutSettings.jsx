@@ -34,6 +34,9 @@ const aboutSchema = z.object({
   profileCaption: z.string().optional(),
   profileSubCaption: z.string().optional(),
   profileImage: z.string().optional(),
+  sqlTitle: z.string().optional(),
+  sqlQuery: z.string().optional(),
+  sqlOutput: z.string().optional(),
   education: z.object({
     school: z.string().optional(),
     degree: z.string().optional(),
@@ -92,6 +95,17 @@ const aboutSchema = z.object({
       ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['goals', 'next'], message: 'Future goal is required' });
     }
   }
+  if (isVisible('sqlCard')) {
+    if (!data.sqlTitle || data.sqlTitle.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['sqlTitle'], message: 'Card title is required' });
+    }
+    if (!data.sqlQuery || data.sqlQuery.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['sqlQuery'], message: 'SQL query is required' });
+    }
+    if (!data.sqlOutput || data.sqlOutput.trim() === '') {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['sqlOutput'], message: 'Output text is required' });
+    }
+  }
 });
 
 function SortableItem(props) {
@@ -130,6 +144,7 @@ export default function AboutSettings() {
     defaultValues: {
       sectionLabel: '', sectionTitle: '', narrative: '', narrativeExtra: '',
       profileCaption: '', profileSubCaption: '', profileImage: '',
+      sqlTitle: '', sqlQuery: '', sqlOutput: '',
       education: { school: '', degree: '', years: '' },
       goals: { now: '', next: '' },
       stats: [],
@@ -225,6 +240,13 @@ export default function AboutSettings() {
             <TextField label="Profile Caption (Name)" {...form.register('profileCaption')} error={form.formState.errors.profileCaption?.message} />
             <TextField label="Profile Sub-caption (Location/Role)" {...form.register('profileSubCaption')} error={form.formState.errors.profileSubCaption?.message} />
           </div>
+        </div>
+      </SectionCard>
+      <SectionCard title="SQL Terminal Card" action={<EyeToggle visible={isVisible('sqlCard')} onToggle={() => toggleVisibility('sqlCard')} label="SQL Terminal Card" />}>
+        <div className="space-y-6">
+          <TextField label="Card Tab Title (e.g. whoami.sql)" {...form.register('sqlTitle')} error={form.formState.errors.sqlTitle?.message} />
+          <TextArea label="SQL Query / Code" rows={3} {...form.register('sqlQuery')} error={form.formState.errors.sqlQuery?.message} />
+          <TextArea label="Terminal Output (New lines separated)" rows={3} {...form.register('sqlOutput')} error={form.formState.errors.sqlOutput?.message} />
         </div>
       </SectionCard>
 

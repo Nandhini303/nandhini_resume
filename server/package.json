@@ -1,7 +1,7 @@
 {
-  "name": "arun-portfolio-server",
+  "name": "nandhini-portfolio-server",
   "version": "1.0.0",
-  "description": "Backend server for Arun Pandian's MERN portfolio",
+  "description": "Backend server for Nandhini C's portfolio",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

@@ -1,5 +1,5 @@
 -- ============================================================
--- Arun Pandian Portfolio — Supabase Schema + RLS
+-- Nandhini C Portfolio — Supabase Schema + RLS
 -- Run this in the Supabase SQL Editor to set up the database.
 -- ============================================================
 
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS blogs (
   tags         TEXT[] DEFAULT '{}',
   read_time    TEXT DEFAULT '3 min read',
   cover_image  TEXT,
-  author_name  TEXT DEFAULT 'Arun Pandian',
+  author_name  TEXT DEFAULT 'Nandhini C',
   author_avatar TEXT,
   published    BOOLEAN NOT NULL DEFAULT false,
   featured     BOOLEAN NOT NULL DEFAULT false,

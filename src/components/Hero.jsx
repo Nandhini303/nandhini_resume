@@ -158,7 +158,7 @@ const Hero = () => {
         </div>
 
         <div className="w-full max-w-7xl mx-auto px-5 flex justify-between items-end text-[10px] border-t border-line pt-6">
-          <span>ARUN PANDIAN PORTFOLIO Selected Works</span>
+          <span>NANDHINI C PORTFOLIO Selected Works</span>
           <span>© 2026 EDITION</span>
         </div>
       </section>

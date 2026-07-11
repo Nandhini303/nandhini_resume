@@ -1,10 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
-  <rect width="48" height="48" rx="12" fill="#4F46E5"/>
-  <g fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M14 34 L14 14" />
-    <path d="M14 14 L34 34" />
-    <path d="M34 34 L34 14" />
-    <path d="M24 24 C24 20, 27 18, 27 18" stroke="#10B981" stroke-width="2.5" />
-    <path d="M24 24 C24 28, 21 30, 21 30" stroke="#10B981" stroke-width="2.5" />
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Bottom violet isometric plate -->
+    <path d="M24 28 L38 21 L38 25 L24 32 L10 25 L10 21 Z" fill="#6366F1" />
+    <path d="M24 28 L38 21 L24 14 L10 21 Z" fill="#4F46E5" />
+    <path d="M24 28 L38 21 L38 25 L24 32 L10 25 L10 21 Z" stroke="#312E81" stroke-width="1.5" />
+    <path d="M24 28 L10 21" stroke="#312E81" stroke-width="1.5" />
+    <path d="M24 28 L38 21" stroke="#312E81" stroke-width="1.5" />
+    <path d="M24 32 L24 28" stroke="#312E81" stroke-width="1.5" />
+
+    <!-- Dotted connection lines -->
+    <path d="M10 21 L10 13" stroke="#94A3B8" stroke-width="1" stroke-dasharray="2,2" />
+    <path d="M38 21 L38 13" stroke="#94A3B8" stroke-width="1" stroke-dasharray="2,2" />
+    <path d="M24 28 L24 20" stroke="#94A3B8" stroke-width="1" stroke-dasharray="2,2" />
+
+    <!-- Top white isometric plate -->
+    <path d="M24 20 L38 13 L38 15 L24 22 L10 15 L10 13 Z" fill="#FFFFFF" />
+    <path d="M24 20 L38 13 L24 6 L10 13 Z" fill="#F8FAFC" />
+    <path d="M24 20 L38 13 L38 15 L24 22 L10 15 L10 13 Z" stroke="#64748B" stroke-width="1.5" />
+    <path d="M24 20 L10 13" stroke="#64748B" stroke-width="1.5" />
+    <path d="M24 20 L38 13" stroke="#64748B" stroke-width="1.5" />
+    <path d="M24 22 L24 20" stroke="#64748B" stroke-width="1.5" />
   </g>
 </svg>
