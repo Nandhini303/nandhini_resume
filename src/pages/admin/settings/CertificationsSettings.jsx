@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Loader2, Plus, GripVertical, Trash2 } from 'lucide-react';
@@ -109,6 +110,21 @@ export default function CertificationsSettings() {
     });
   }, []);
 
+  const onInvalid = (errors) => {
+    console.error("Form validation errors:", errors);
+    const getFirstError = (obj) => {
+      if (!obj) return null;
+      if (obj.message) return obj.message;
+      for (const val of Object.values(obj)) {
+        const msg = getFirstError(val);
+        if (msg) return msg;
+      }
+      return null;
+    };
+    const msg = getFirstError(errors);
+    toast.error(msg || "Please check the highlighted fields.");
+  };
+
   const onSubmit = async (values) => {
     setIsSaving(true);
     const success = await saveSettings(values);
@@ -137,7 +153,7 @@ export default function CertificationsSettings() {
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-4xl space-y-8 pb-32">
+    <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="max-w-4xl space-y-8 pb-32">
       <div>
         <h1 className="font-bold text-2xl text-slate-800">Certifications Settings</h1>
         <p className="text-slate-500 mt-1 text-sm">Manage your professional certifications and courses.</p>
@@ -152,40 +168,45 @@ export default function CertificationsSettings() {
         
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={fields.map(f => f.id)} strategy={verticalListSortingStrategy}>
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 gap-4">
               {fields.map((field, index) => (
                 <SortableItem key={field.id} id={field.id}>
-                  <div className="flex gap-6 items-start">
+                  <div className="flex gap-4 items-start">
                     <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
                       <TextField 
-                        label="Certificate Name"
-                        className="md:col-span-2"
+                        label="Certification Title"
+                        placeholder="e.g. Certified Data Analyst" 
                         {...form.register(`certifications.${index}.name`)} 
                         error={form.formState.errors.certifications?.[index]?.name?.message} 
                       />
                       <TextField 
                         label="Issuer"
+                        placeholder="e.g. Google" 
                         {...form.register(`certifications.${index}.issuer`)} 
                         error={form.formState.errors.certifications?.[index]?.issuer?.message} 
                       />
                       <TextField 
-                        label="Issue Date"
+                        label="Issue Date / Period"
+                        placeholder="e.g. Jan 2026" 
                         {...form.register(`certifications.${index}.issueDate`)} 
                         error={form.formState.errors.certifications?.[index]?.issueDate?.message} 
                       />
                       <TextField 
                         label="Credential ID"
+                        placeholder="e.g. GOOG-123456" 
                         {...form.register(`certifications.${index}.credentialId`)} 
                         error={form.formState.errors.certifications?.[index]?.credentialId?.message} 
                       />
                       <TextField 
                         label="Credential URL"
+                        className="md:col-span-2"
+                        placeholder="https://..." 
                         {...form.register(`certifications.${index}.credentialUrl`)} 
                         error={form.formState.errors.certifications?.[index]?.credentialUrl?.message} 
                       />
                       <div className="md:col-span-2">
                         <ImageUpload
-                          label="Certificate File (image, PDF, DOC — any format)"
+                          label="Certificate Attachment (Image or Doc)"
                           folder="certifications"
                           accept="image/*,application/pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.rtf,.odt,.pages"
                           url={form.watch(`certifications.${index}.image`)}
@@ -209,7 +230,7 @@ export default function CertificationsSettings() {
         isDirty={form.formState.isDirty} 
         isSaving={isSaving} 
         onDiscard={() => form.reset()} 
-        onSave={form.handleSubmit(onSubmit)} 
+        onSave={form.handleSubmit(onSubmit, onInvalid)} 
       />
     </form>
   );

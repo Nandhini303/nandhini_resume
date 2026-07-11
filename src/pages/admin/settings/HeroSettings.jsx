@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Loader2, Plus, GripVertical, Trash2 } from 'lucide-react';
@@ -244,7 +245,7 @@ export default function HeroSettings() {
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-4xl space-y-8 pb-32">
+    <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="max-w-4xl space-y-8 pb-32">
       <div>
         <h1 className="font-bold text-2xl text-slate-800">Hero Settings</h1>
         <p className="text-slate-500 mt-1 text-sm">Configure the main landing section of your portfolio.</p>

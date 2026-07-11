@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Loader2 } from 'lucide-react';
@@ -82,6 +83,21 @@ export default function ContactSettings() {
     });
   }, []);
 
+  const onInvalid = (errors) => {
+    console.error("Form validation errors:", errors);
+    const getFirstError = (obj) => {
+      if (!obj) return null;
+      if (obj.message) return obj.message;
+      for (const val of Object.values(obj)) {
+        const msg = getFirstError(val);
+        if (msg) return msg;
+      }
+      return null;
+    };
+    const msg = getFirstError(errors);
+    toast.error(msg || "Please check the highlighted fields.");
+  };
+
   const onSubmit = async (values) => {
     setIsSaving(true);
     const finalData = { ...initialData, ...values };
@@ -97,7 +113,7 @@ export default function ContactSettings() {
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-4xl space-y-8 pb-32">
+    <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="max-w-4xl space-y-8 pb-32">
       <div>
         <h1 className="font-bold text-2xl text-slate-800">Contact Settings</h1>
         <p className="text-slate-500 mt-1 text-sm">Configure your contact details and form headers.</p>
@@ -123,7 +139,7 @@ export default function ContactSettings() {
         isDirty={form.formState.isDirty} 
         isSaving={isSaving} 
         onDiscard={() => form.reset()} 
-        onSave={form.handleSubmit(onSubmit)} 
+        onSave={form.handleSubmit(onSubmit, onInvalid)} 
       />
     </form>
   );
