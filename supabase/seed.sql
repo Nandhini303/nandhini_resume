@@ -78,11 +78,44 @@ INSERT INTO site_settings (key, value) VALUES
     { "title": "Tools & Other", "icon": "Wrench", "items": ["Excel", "Teamwork", "Communication", "Technical Presentation"] }
   ],
   "certifications": [
+    "Data Analytics Job Simulation — Deloitte / Forage (Credential ID: 694a3080e83f3f31dcdb6f126b)",
+    "Python Development Intern Certificate — Cognifyz Technologies (Intern ID: CTI/A1/C277974)",
     "Full Stack Development Bootcamp — NoviTech R&D Pvt Ltd (Credential ID: NT_FSDB327)",
     "NPTEL: Python for Data Science (Elite) — MoE, Govt. of India (Credential ID: NPTEL25CS104S433606017)",
     "Artificial Intelligence – 1 Week Challenge — NoviTech R&D Pvt Ltd (Credential ID: NT_5AIV915)"
   ],
   "ticker": ["Python", "HTML", "CSS", "Full-Stack Development", "OOP", "Data Science", "AI Foundations", "Excel", "Teamwork", "Communication", "Technical Presentation"]
+}'::jsonb),
+
+-- Certifications details
+('certifications', '{
+  "certifications": [
+    {
+      "name": "Data Analytics Job Simulation",
+      "issuer": "Deloitte",
+      "issueDate": "December 2025",
+      "credentialId": "694a3080e83f3f31dcdb6f126b",
+      "credentialUrl": "https://theforage.com",
+      "image": ""
+    },
+    {
+      "name": "Python Development Intern Certificate",
+      "issuer": "Cognifyz Technologies",
+      "issueDate": "January 2026",
+      "credentialId": "CTI/A1/C277974",
+      "credentialUrl": "https://www.cognifyz.com",
+      "image": ""
+    },
+    {
+      "name": "2 Hour BootCamp in Full Stack Development",
+      "issuer": "NoviTech R&D Private Limited",
+      "issueDate": "February 2025",
+      "credentialId": "NT_FSDB327",
+      "credentialUrl": "",
+      "image": ""
+    }
+  ],
+  "hiddenFields": []
 }'::jsonb),
 
 -- Navbar

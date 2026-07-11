@@ -16,6 +16,7 @@ export default function PreviewPanel() {
   anchorRef.current = previewAnchor;
 
   const pushToFrame = useCallback((payload) => {
+    console.log("PreviewPanel: posting PREVIEW_OVERRIDE to iframe", payload);
     iframeRef.current?.contentWindow?.postMessage(
       { type: 'PREVIEW_OVERRIDE', payload },
       '*'

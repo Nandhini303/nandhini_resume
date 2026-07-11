@@ -89,10 +89,12 @@ export default function Canvas() {
     return () => window.removeEventListener('message', onMsg);
   }, [setSelected, setContent, resendAll]);
 
-  // Push state changes down to the iframe.
   useEffect(() => { post({ type: 'EDITOR_MODE', enabled }); }, [enabled, post]);
   useEffect(() => { post({ type: 'EDITOR_STYLE', css: overridesToCss(overrides) }); }, [overrides, post]);
-  useEffect(() => { post({ type: 'PREVIEW_OVERRIDE', payload: { settings: content } }); }, [content, post]);
+  useEffect(() => {
+    console.log("Canvas.tsx: posting PREVIEW_OVERRIDE", content);
+    post({ type: 'PREVIEW_OVERRIDE', payload: { settings: content } });
+  }, [content, post]);
   useEffect(() => {
     if (selectRequestId !== null) {
       post({ type: 'EDITOR_SELECT', id: selectRequestId });
